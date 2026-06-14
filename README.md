@@ -1,5 +1,3 @@
-# SIBUC - HOW
-
 # SIBUC - Sistema de Informações sobre Unidades de Conservação
 
 ## Sobre o Projeto
