@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIBUC - Comunicações</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-placeholder">
+            <img class="logo" src="imgs/logo-header.png" alt="Logo do SIBUC">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="unidades.html">Unidades</a></li>
+                <li><a href="comunicacoes.html" class="active">Comunicações</a></li>
+                <li><a href="contatos.html">Contatos</a></li>
+            </ul>
+        </nav>
+        <a href="nova-comunicacao.html" class="btn-nova-comunicacao">
+            <i class="fa-regular fa-comment-dots"></i> Nova Comunicação
+        </a>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="page-header">
+            <h1>COMUNICAÇÕES</h1>
+            <p>Confira as denúncias, sugestões e informações enviadas pela comunidade.</p>
+        </section>
+
+        <section class="filter-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar por título, descrição ou unidade...">
+            </div>
+            
+            <div class="select-box">
+                <label>Unidade de conservação</label>
+                <select>
+                    <option>Todas</option>
+                </select>
+            </div>
+
+            <div class="select-box">
+                <label>Tipo</label>
+                <select>
+                    <option>Todas</option>
+                </select>
+            </div>
+
+            <div class="select-box">
+                <label>Situação</label>
+                <select>
+                    <option>Todas</option>
+                </select>
+            </div>
+
+            <button class="btn-filtros">
+                <i class="fa-solid fa-sliders"></i> Filtros
+            </button>
+        </section>
+
+        <section class="comunicacoes-list" id="comunicacoesList">
+    <!-- As comunicações serão carregadas aqui via JavaScript -->
+        </section>
+
+        <section class="pagination-container">
+            <a href="#" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Voltar para unidades</a>
+            
+            <div class="pagination">
+                <a href="#" class="page-arrow"><i class="fa-solid fa-chevron-left"></i></a>
+                <a href="#" class="page-number active">1</a>
+                <a href="#" class="page-number">2</a>
+                <a href="#" class="page-number">3</a>
+                <span class="page-dots">...</span>
+                <a href="#" class="page-number">10</a>
+                <a href="#" class="page-arrow"><i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="results-count">
+                Mostrando 1 a 10 de 114 comunicações
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="logo-placeholder footer-logo">
+            <img class="logo-footer" src="imgs/logo-footer.png" alt="Logo do SIBUC">
+        </div>
+        
+        <div class="footer-contacts">
+            <a href="mailto:contato@sibuc.com.br"><i class="fa-regular fa-envelope"></i> contato@sibuc.com.br</a>
+            <a href="tel:+5547912345678"><i class="fa-solid fa-phone"></i> (47) 9 1234-5678</a>
+        </div>
+
+        <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </footer>
+
+    <script>
+// Pegar unidade_id da URL se existir
+const urlParams = new URLSearchParams(window.location.search);
+const unidadeId = urlParams.get('unidade_id');
+
+// Carregar comunicações
+async function carregarComunicacoes() {
+    try {
+        let url = 'backend/listar_comunicacoes.php';
+        if (unidadeId) {
+            url += `?unidade_id=${unidadeId}`;
+        }
+        
+        const resposta = await fetch(url);
+        const dados = await resposta.json();
+        
+        const container = document.getElementById('comunicacoesList');
+        
+        if (dados.success && dados.comunicacoes.length > 0) {
+            container.innerHTML = '';
+            
+            dados.comunicacoes.forEach(com => {
+                // Definir ícone baseado no tipo (simulação)
+                const icone = com.titulo.toLowerCase().includes('sugestão') ? 'fa-regular fa-lightbulb' : 'fa-solid fa-tree';
+                
+                container.innerHTML += `
+                    <div class="comunicacao-item">
+                        <div class="item-icon-wrapper">
+                            <i class="${icone}"></i>
+                        </div>
+                        <div class="item-content">
+                            <span class="tag tag-denuncia">${com.titulo.substring(0, 30)}</span>
+                            <h2>${com.titulo}</h2>
+                            <p class="description">${com.descricao.substring(0, 120)}...</p>
+                            <span class="location"><i class="fa-solid fa-location-dot"></i> ${com.unidade_nome}</span>
+                        </div>
+                        <div class="item-status-wrapper">
+                            <div class="status">
+                                <span class="status-dot ${com.status_classe}"></span> ${com.status_texto}
+                            </div>
+                            <div class="date">
+                                <i class="fa-regular fa-calendar"></i> ${com.data_formatada}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        } else {
+            container.innerHTML = '<p class="sem-dados">Nenhuma comunicação encontrada para esta unidade.</p>';
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        document.getElementById('comunicacoesList').innerHTML = '<p class="erro">Erro ao carregar comunicações.</p>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', carregarComunicacoes);
+</script>
+
+</body>
+</html>

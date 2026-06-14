@@ -1,0 +1,119 @@
+<?php
+require_once 'config/conexao.php';
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIBUC - Sistema de Informações sobre Unidades de Conservação</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-placeholder">
+            <img class="logo" src="imgs/logo-header.png" alt="Logo do SIBUC">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Início</a></li>
+                <li><a href="unidades.html">Unidades</a></li>
+                <li><a href="comunicacoes.html">Comunicações</a></li>
+                <li><a href="contatos.html">Contatos</a></li>
+            </ul>
+        </nav>
+        <a href="nova-comunicacao.html" class="btn-nova-comunicacao">
+            <i class="fa-regular fa-comment-dots"></i> Nova Comunicação
+        </a>
+    </header>
+
+    <section class="hero">
+        <h1>Bem-vindo ao SIBUC</h1>
+        <p>O sistema que conecta você às Unidades de Conservação. Acompanhe informações, envie comunicações e contribua para a preservação da natureza;</p>
+        <div class="hero-buttons">
+            <a href="unidades.html" class="btn-primary">
+                <i class="fa-solid fa-leaf"></i> Explorar Unidades
+            </a>
+            <a href="comunicacoes.html" class="btn-secondary">
+                <i class="fa-regular fa-comment-dots"></i> Ver Comunicações
+            </a>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="cards-grid">
+            
+            <div class="card">
+                <div class="card-icon-wrapper">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Conhecer as Unidades</h3>
+                    <p>Explore as Unidades de Conservação e conheça a biodiversidade e os detalhes de cada área protegida.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon-wrapper">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Enviar Comunicações</h3>
+                    <p>Envie denúncias, sugestões ou informações sobre as Unidades de Conservação de forma rápida e fácil.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon-wrapper">
+                    <i class="fa-regular fa-file-lines"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Acompanhar Respostas</h3>
+                    <p>Acompanhe o andamento das suas comunicações e veja as respostas da equipe responsável.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="banner-compromisso">
+            <div class="compromisso-left">
+                <div class="compromisso-icon">
+                    🌱
+                </div>
+                <div class="compromisso-text">
+                    <h3>Prezar é nosso compromisso</h3>
+                    <p>As Unidades de Conservação protegem a biodiversidade, os recursos naturais e garantem qualidade de vida para as futuras gerações.</p>
+                </div>
+            </div>
+            <a href="#" class="btn-saiba-mais">
+                <i class="fa-solid fa-leaf"></i> Saiba mais sobre
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="logo-placeholder footer-logo">
+            <img class="logo-footer" src="imgs/logo-footer.png" alt="Logo do SIBUC">
+        </div>
+        
+        <div class="footer-contacts">
+            <a href="mailto:contato@sibuc.com.br"><i class="fa-regular fa-envelope"></i> contato@sibuc.com.br</a>
+            <a href="tel:+5547912345678"><i class="fa-solid fa-phone"></i> (47) 9 1234-5678</a>
+        </div>
+
+        <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>
